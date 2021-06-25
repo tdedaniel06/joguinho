@@ -1,0 +1,71 @@
+<div class="backgroundImg">
+  <div class="container" style="padding-top:70px;">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="d-grid gap-2">
+          <button class="btn btn-lg btn-block woodBtn" (click)="openLogin(contentLogin)">LOGIN</button>  
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="d-grid gap-2">
+          <button class="btn btn-lg btn-block woodBtn" (click)="open(content)">REGISTAR</button>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center " style="padding-top:70px;">
+    <h1 class="midText">Buckingchester Woods</h1>
+  </div>
+</div>
+
+<!-- REGISTAR -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">What Ho!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" class="form-control" #userRegist>
+    </div>
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" class="form-control" #pwRegist>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <p class="msgErro" *ngIf="errRegis == true">User already exist!</p>
+    <button type="button" class="btn btn-outline-dark" (click)="registar(userRegist.value, pwRegist.value)">Going to siege</button>
+  </div>
+</ng-template>
+
+
+<!-- LOGIN -->
+<ng-template #contentLogin let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Welcome Champ!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" class="form-control" #userLogin>
+    </div>
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" class="form-control" #pwLogin>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <p class="msgErro" *ngIf="errLog == true">Login failed!</p>
+    <button type="button" class="btn btn-outline-dark" (click)="login(userLogin.value, pwLogin.value)">Login</button>
+  </div>
+</ng-template>
+

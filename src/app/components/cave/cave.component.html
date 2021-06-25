@@ -1,0 +1,174 @@
+<div class="backgroundCave">
+  <div class="container text-center " style="padding-top:20px;">
+    <h1 class="midText">"{{headerMessage}}"</h1>
+  </div>
+  <div class="container" style="padding-top:70px;">
+    <div class="row">
+      <div class="col-md-4 text-center">
+          <button class="btn btn-lg btn-block rockBtn" (click)="openChar(contentChar)" *ngIf="btnAdv == false">CHARACTER</button>
+          <button class="btn btn-lg btn-block rockBtn"   *ngIf="btnAdv == true">COMING SOON</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button class="btn btn-lg btn-block rockBtn" [routerLink]="['/arena']">TO THE BATTLEFIELD</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button class="btn btn-lg btn-block rockBtn" [routerLink]="['']">LEAVE THE CAVE</button>
+      </div>
+    </div>
+
+    <div class="row" id="statusChar">
+      <div class="col-md-4 text-center">
+        <img src="../../../assets/img/farmer.png" alt="" *ngIf="weapon == 'none'">
+        <img src="../../../assets/img/farmerSword.png" alt="" *ngIf="weapon == 'sword'">
+        <img src="../../../assets/img/farmerBow.png" alt="" *ngIf="weapon == 'bow'">
+        <img src="../../../assets/img/farmerFork.png" alt="" *ngIf="weapon == 'fork'">
+      </div>
+      <div class="col-md-4 text-center my-auto">
+        <ul>
+          <li>{{name}}</li>
+          <li>ATACK: {{atk}}</li>
+          <li>INTELIGENCE: {{int}}</li>
+          <li>HEALTH: {{he}}</li>
+        </ul>
+      </div>
+      <div class="col-md-4 text-center my-auto">
+        <button class="btn btn-lg btn-block rockBtn" (click)="openStore(contentStore)" style="padding-top: 10px;">STORE</button>
+        <h3 class="midText" style="margin-top: 50px;;">COINS: {{coins}}</h3>
+      </div>
+    </div>
+
+    <div class="row" id="noChar" style="padding-top:180px;">
+      <div class="col-md-12 text-center">
+        <h1 class="midText2">YOU NEED A HERO!</h1>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- CHARACTER -->
+<ng-template #contentChar let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">What Ho!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" #nameP>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <p style="padding-top: 30px;">Usable points: {{total}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Atack:</label><a> {{atkP}}</a>
+            <!--<input type="number" class="form-control" #atkP>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="soma('atkP')">+</button>
+          <button class="btnCreateChar" (click)="sub('atkP')">-</button>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Inteligence:</label><a> {{intP}}</a>
+            <!--<input type="number" class="form-control" #intP>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="soma('intP')">+</button>
+          <button class="btnCreateChar" (click)="sub('intP')">-</button>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Health:</label><a> {{heP}}</a>
+            <!--<input type="number" class="form-control" #heP>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="soma('heP')">+</button>
+          <button class="btnCreateChar" (click)="sub('heP')">-</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <p class="msgErro" *ngIf="errChar == true">Character name already in use!</p>
+    <button type="button" class="btn btn-outline-dark" (click)="createChar(nameP.value)">Give Birth</button>
+  </div>
+</ng-template>
+
+
+<!-- STORE -->
+<ng-template #contentStore let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">WEAPONS STORE</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>SWORD</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="buyWeap('sword')" *ngIf="tpSW == false">BUY</button>
+          <button class="btnCreateChar" (click)="equipWeap('sword')" *ngIf="tpSW == true">EQUIP</button>
+          <a class="priceWeap" *ngIf="tpSW == false">PRICE: 1500</a>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>BOW</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="buyWeap('bow')" *ngIf="tpBW == false">BUY</button>
+          <button class="btnCreateChar" (click)="equipWeap('bow')" *ngIf="tpBW == true">EQUIP</button>
+          <a class="priceWeap" *ngIf="tpBW == false">PRICE: 3000</a>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>FORK</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="buyWeap('fork')" *ngIf="tpFK == false">BUY</button>
+          <button class="btnCreateChar" (click)="equipWeap('fork')" *ngIf="tpFK == true">EQUIP</button>
+          <a class="priceWeap" *ngIf="tpFK == false">PRICE: 6000</a>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-12">
+          <label class="coinsWeap">AVALIABLE COINS: {{coins}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btnCreateChar" (click)="unEquip()">UNEQUIP WEAPONS</button>
+  </div>
+</ng-template>

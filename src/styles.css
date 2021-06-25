@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+body{
+  font-family: 'MedievalSharp', cursive!important;
+}
+
+.msgErro{
+  color: red;
+  margin-right: 35px!important;
+}

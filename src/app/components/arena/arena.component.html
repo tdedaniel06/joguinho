@@ -1,0 +1,153 @@
+<div class="backgroundArena" style="background-image: url('{{backArena}}');">
+  <div class="container" style="padding-top:20px;">
+    <div class="row">
+      <div class="col-md-4 cardChar">
+        <h2><img src="../../../assets/img/warrior.png" alt="" class="icons">{{name}}</h2>
+        <h2><img src="../../../assets/img/sword.webp" alt="" class="icons">{{atk}}</h2>
+        <h2><img src="../../../assets/img/glasses.png" alt="" class="icons">{{int}}</h2>
+        <h2><img src="../../../assets/img/heart.webp" alt="" class="icons">{{he}}</h2>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <button class="btn btn-lg btn-block woodBtn" [routerLink]="['/cave']">LEAVE BATTLE</button>
+      </div>
+
+      <div class="col-md-4 cardChar">
+        <h2><img src="../../../assets/img/warrior.png" alt="" class="icons">{{nameE}}</h2>
+        <h2><img src="../../../assets/img/sword.webp" alt="" class="icons">{{atkE}}</h2>
+        <h2><img src="../../../assets/img/glasses.png" alt="" class="icons">{{intE}}</h2>
+        <h2><img src="../../../assets/img/heart.webp" alt="" class="icons">{{heE}}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <img src="../../../assets/img/farmer.png" alt="" class="imgBatle" *ngIf="weapon == 'none'">
+        <img src="../../../assets/img/farmerSword.png" alt="" class="imgBatle" *ngIf="weapon == 'sword'">
+        <img src="../../../assets/img/farmerBow.png" alt="" class="imgBatle" *ngIf="weapon == 'bow'">
+        <img src="../../../assets/img/farmerFork.png" alt="" class="imgBatle" *ngIf="weapon == 'fork'">
+      </div>
+      <div class="col-md-4 text-center">
+        <button class="btn btn-lg btn-block woodBtn" (click)="startBattle()" id="startBattleBtn">START BATTLE</button>
+
+        <!-- PLAYER TURN -->
+        <div class="container btnsBattle" id="playerRound" style="display: none;">
+          <h2 class="midText">Your Turn</h2>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-block woodBtn" (click)="atkAtk()">ATACK</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-block woodBtn" (click)="atkInt()">INTELIGENCE</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-block woodBtn" (click)="atkHe()">HEALTH</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-block woodBtn" (click)="specialAtk()" *ngIf="special == true">SPECIAL</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENEMY TURN -->
+        <div class="container btnsBattle" id="enemyRound" style="display: none;">
+          <h2 class="midText">Enemy Turn</h2>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <img src="{{imgEn}}" alt="" class="imgBatleEnemy">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CHARACTER UPDATE-->
+<ng-template #contentUpdateChar let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Congrats, upgrade yourself!</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <p style="padding-top: 30px;">Usable points: {{usablePoints}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Atack:</label><a> {{atkIni}}</a>
+            <!--<input type="number" class="form-control" #atkP>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="soma('atk')">+</button>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Inteligence:</label><a> {{intIni}}</a>
+            <!--<input type="number" class="form-control" #intP>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="soma('int')">+</button>
+        </div>
+      </div>
+      <div class="row spaceBet">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Health:</label><a> {{heIni}}</a>
+            <!--<input type="number" class="form-control" #heP>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btnCreateChar" (click)="soma('he')">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="upgreadeChar(contentUpdateChar)">BOOST</button>
+  </div>
+</ng-template>
+
+<!-- CHARACTER WITHOUT UPDATE-->
+<ng-template #contentWinChar let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Congrats, you destroyed your enemy!</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <h3>You simply destroyed you oponent! With that you can not steal atributes from him!</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" [routerLink]="['/cave']" (click)="closeModal()">Back Home</button>
+  </div>
+</ng-template>
